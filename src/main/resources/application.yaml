@@ -1,0 +1,32 @@
+server:
+  port: 5001
+
+spring:
+  application:
+    name: bank_query
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    username: admin
+    password: q
+    url: jdbc:postgresql://localhost:5432/appdb
+    driver-class-name: org.postgresql.Driver
+
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9094,localhost:9096
+    listener:
+      ack-mode: MANUAL_IMMEDIATE
+    consumer:
+      group-id: bank-account-consumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: org.kiroff.bank.account.common.events,org.kiroff.bank.cqrs.core.events
