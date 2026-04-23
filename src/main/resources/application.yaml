@@ -24,9 +24,13 @@ spring:
       group-id: bank-account-consumer
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
         spring:
           json:
             trusted:
               packages: org.kiroff.bank.account.common.events,org.kiroff.bank.cqrs.core.events
+          deserializer:
+            value:
+              delegate:
+                class: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
