@@ -18,8 +18,10 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:9092,localhost:9094,localhost:9096
+    topic: bank-account-events
     listener:
       ack-mode: MANUAL_IMMEDIATE
+      poll-timeout: 900000
     consumer:
       group-id: bank-account-consumer
       auto-offset-reset: earliest
