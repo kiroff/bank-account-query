@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: bank_query
+  main:
+    banner-mode: off
 
   jpa:
     show-sql: true
